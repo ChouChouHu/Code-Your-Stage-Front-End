@@ -1,107 +1,127 @@
-import React, { useRef, useEffect, useState } from 'react';
-import { useThemeProvider } from '../utils/ThemeContext';
-
-import { chartColors } from './ChartjsConfig';
+import { useRef, useEffect, useState } from "react";
 import {
-  Chart, BarController, BarElement, LinearScale, TimeScale, Tooltip, Legend,
-} from 'chart.js';
-import 'chartjs-adapter-moment';
+  Chart,
+  BarController,
+  BarElement,
+  LinearScale,
+  TimeScale,
+  Tooltip,
+  Legend
+} from "chart.js";
+import { useThemeProvider } from "../utils/ThemeContext";
+
+import { chartColors } from "./ChartjsConfig";
+import "chartjs-adapter-moment";
 
 // Import utilities
-import { formatValue } from '../utils/Utils';
+import { formatValue } from "../utils/Utils";
 
-Chart.register(BarController, BarElement, LinearScale, TimeScale, Tooltip, Legend);
+Chart.register(
+  BarController,
+  BarElement,
+  LinearScale,
+  TimeScale,
+  Tooltip,
+  Legend
+);
 
-function BarChart02({
-  data,
-  width,
-  height
-}) {
-
-  const [chart, setChart] = useState(null)
+function BarChart02({ data, width, height }) {
+  const [chart, setChart] = useState(null);
   const canvas = useRef(null);
   const { currentTheme } = useThemeProvider();
-  const darkMode = currentTheme === 'dark';
-  const { textColor, gridColor, tooltipBodyColor, tooltipBgColor, tooltipBorderColor } = chartColors; 
+  const darkMode = currentTheme === "dark";
+  const {
+    textColor,
+    gridColor,
+    tooltipBodyColor,
+    tooltipBgColor,
+    tooltipBorderColor
+  } = chartColors;
 
   useEffect(() => {
     const ctx = canvas.current;
     // eslint-disable-next-line no-unused-vars
     const newChart = new Chart(ctx, {
-      type: 'bar',
-      data: data,
+      type: "bar",
+      data,
       options: {
         layout: {
           padding: {
             top: 12,
             bottom: 16,
             left: 20,
-            right: 20,
-          },
+            right: 20
+          }
         },
         scales: {
           y: {
             stacked: true,
             border: {
-              display: false,
+              display: false
             },
             beginAtZero: true,
             ticks: {
               maxTicksLimit: 5,
               callback: (value) => formatValue(value),
-              color: darkMode ? textColor.dark : textColor.light,
+              color: darkMode ? textColor.dark : textColor.light
             },
             grid: {
-              color: darkMode ? gridColor.dark : gridColor.light,
-            },
+              color: darkMode ? gridColor.dark : gridColor.light
+            }
           },
           x: {
             stacked: true,
-            type: 'time',
+            type: "time",
             time: {
-              parser: 'MM-DD-YYYY',
-              unit: 'month',
+              parser: "MM-DD-YYYY",
+              unit: "month",
               displayFormats: {
-                month: 'MMM YY',
-              },
+                month: "MMM YY"
+              }
             },
             border: {
-              display: false,
+              display: false
             },
             grid: {
-              display: false,
+              display: false
             },
             ticks: {
               autoSkipPadding: 48,
               maxRotation: 0,
-              color: darkMode ? textColor.dark : textColor.light,
-            },
-          },
+              color: darkMode ? textColor.dark : textColor.light
+            }
+          }
         },
         plugins: {
           legend: {
-            display: false,
+            display: false
           },
           tooltip: {
             callbacks: {
               title: () => false, // Disable tooltip title
-              label: (context) => formatValue(context.parsed.y),
+              label: (context) => formatValue(context.parsed.y)
             },
-            bodyColor: darkMode ? tooltipBodyColor.dark : tooltipBodyColor.light,
-            backgroundColor: darkMode ? tooltipBgColor.dark : tooltipBgColor.light,
-            borderColor: darkMode ? tooltipBorderColor.dark : tooltipBorderColor.light,
-          },
+            bodyColor: darkMode
+              ? tooltipBodyColor.dark
+              : tooltipBodyColor.light,
+            backgroundColor: darkMode
+              ? tooltipBgColor.dark
+              : tooltipBgColor.light,
+            borderColor: darkMode
+              ? tooltipBorderColor.dark
+              : tooltipBorderColor.light
+          }
         },
         interaction: {
           intersect: false,
-          mode: 'nearest',
+          mode: "nearest"
         },
         animation: {
-          duration: 200,
+          duration: 200
         },
         maintainAspectRatio: false,
-        resizeDelay: 200,
-      },
+        resizeDelay: 200
+      }
     });
     setChart(newChart);
     return () => newChart.destroy();
@@ -126,12 +146,10 @@ function BarChart02({
       chart.options.plugins.tooltip.backgroundColor = tooltipBgColor.light;
       chart.options.plugins.tooltip.borderColor = tooltipBorderColor.light;
     }
-    chart.update('none');
+    chart.update("none");
   }, [currentTheme]);
 
-  return (
-    <canvas ref={canvas} width={width} height={height}></canvas>
-  );
+  return <canvas ref={canvas} width={width} height={height} />;
 }
 
 export default BarChart02;

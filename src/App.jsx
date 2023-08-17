@@ -1,33 +1,17 @@
-import React, { useEffect } from 'react';
-import {
-  Routes,
-  Route,
-  useLocation
-} from 'react-router-dom';
+// App.jsx is the homepage of the React project, let's browse this program.
 
-import './css/style.css';
+// Here are the basic settings of the project. We use the Tailwind style library and Chart.js in the project.
+import "./css/style.css"; // Import Tailwind CSS
+import "./charts/ChartjsConfig"; // Import Chart.js
 
-import './charts/ChartjsConfig';
-
-// Import pages
-import Dashboard from './pages/Dashboard';
+// Dashboard is one of the pages on our website (currently the only one).
+import Dashboard from "./pages/Dashboard";
 
 function App() {
-
-  const location = useLocation();
-
-  useEffect(() => {
-    document.querySelector('html').style.scrollBehavior = 'auto'
-    window.scroll({ top: 0 })
-    document.querySelector('html').style.scrollBehavior = ''
-  }, [location.pathname]); // triggered on route change
-
   return (
-    <>
-      <Routes>
-        <Route exact path="/" element={<Dashboard />} />
-      </Routes>
-    </>
+    // eslint-disable-next-line react/react-in-jsx-scope
+    <Dashboard />
+    // To modify the content of our page, please go to ./pages/Dashboard to find the code for this page.
   );
 }
 

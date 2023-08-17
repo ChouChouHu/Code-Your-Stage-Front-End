@@ -1,25 +1,19 @@
-import React, { useRef, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import Transition from '../utils/Transition';
+import { useRef, useEffect } from "react";
+import { Link } from "react-router-dom";
+import Transition from "../utils/Transition";
 
-function ModalSearch({
-  id,
-  searchId,
-  modalOpen,
-  setModalOpen
-}) {
-
+function ModalSearch({ id, searchId, modalOpen, setModalOpen }) {
   const modalContent = useRef(null);
   const searchInput = useRef(null);
 
   // close on click outside
   useEffect(() => {
     const clickHandler = ({ target }) => {
-      if (!modalOpen || modalContent.current.contains(target)) return
+      if (!modalOpen || modalContent.current.contains(target)) return;
       setModalOpen(false);
     };
-    document.addEventListener('click', clickHandler);
-    return () => document.removeEventListener('click', clickHandler);
+    document.addEventListener("click", clickHandler);
+    return () => document.removeEventListener("click", clickHandler);
   });
 
   // close if the esc key is pressed
@@ -28,8 +22,8 @@ function ModalSearch({
       if (!modalOpen || keyCode !== 27) return;
       setModalOpen(false);
     };
-    document.addEventListener('keydown', keyHandler);
-    return () => document.removeEventListener('keydown', keyHandler);
+    document.addEventListener("keydown", keyHandler);
+    return () => document.removeEventListener("keydown", keyHandler);
   });
 
   useEffect(() => {
@@ -81,7 +75,11 @@ function ModalSearch({
                 placeholder="Search Anything…"
                 ref={searchInput}
               />
-              <button className="absolute inset-0 right-auto group" type="submit" aria-label="Search">
+              <button
+                className="absolute inset-0 right-auto group"
+                type="submit"
+                aria-label="Search"
+              >
                 <svg
                   className="w-4 h-4 shrink-0 fill-current text-slate-400 dark:text-slate-500 group-hover:text-slate-500 dark:group-hover:text-slate-400 ml-4 mr-2"
                   viewBox="0 0 16 16"
@@ -96,7 +94,9 @@ function ModalSearch({
           <div className="py-4 px-2">
             {/* Recent searches */}
             <div className="mb-3 last:mb-0">
-              <div className="text-xs font-semibold text-slate-400 dark:text-slate-500 uppercase px-2 mb-2">Recent searches</div>
+              <div className="text-xs font-semibold text-slate-400 dark:text-slate-500 uppercase px-2 mb-2">
+                Recent searches
+              </div>
               <ul className="text-sm">
                 <li>
                   <Link
@@ -192,7 +192,9 @@ function ModalSearch({
             </div>
             {/* Recent pages */}
             <div className="mb-3 last:mb-0">
-              <div className="text-xs font-semibold text-slate-400 dark:text-slate-500 uppercase px-2 mb-2">Recent pages</div>
+              <div className="text-xs font-semibold text-slate-400 dark:text-slate-500 uppercase px-2 mb-2">
+                Recent pages
+              </div>
               <ul className="text-sm">
                 <li>
                   <Link
@@ -207,8 +209,10 @@ function ModalSearch({
                       <path d="M14 0H2c-.6 0-1 .4-1 1v14c0 .6.4 1 1 1h8l5-5V1c0-.6-.4-1-1-1zM3 2h10v8H9v4H3V2z" />
                     </svg>
                     <span>
-                      <span className="font-medium">Messages</span> -{' '}
-                      <span className="text-slate-600 dark:text-slate-400 group-hover:text-white">Conversation / … / Mike Mills</span>
+                      <span className="font-medium">Messages</span> -{" "}
+                      <span className="text-slate-600 dark:text-slate-400 group-hover:text-white">
+                        Conversation / … / Mike Mills
+                      </span>
                     </span>
                   </Link>
                 </li>
@@ -225,8 +229,10 @@ function ModalSearch({
                       <path d="M14 0H2c-.6 0-1 .4-1 1v14c0 .6.4 1 1 1h8l5-5V1c0-.6-.4-1-1-1zM3 2h10v8H9v4H3V2z" />
                     </svg>
                     <span>
-                      <span className="font-medium">Messages</span> -{' '}
-                      <span className="text-slate-600 dark:text-slate-400 group-hover:text-white">Conversation / … / Eva Patrick</span>
+                      <span className="font-medium">Messages</span> -{" "}
+                      <span className="text-slate-600 dark:text-slate-400 group-hover:text-white">
+                        Conversation / … / Eva Patrick
+                      </span>
                     </span>
                   </Link>
                 </li>

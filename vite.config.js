@@ -1,29 +1,29 @@
-import { defineConfig } from 'vite'
-import postcss from './postcss.config.js'
-import react from '@vitejs/plugin-react'
+/* eslint-disable import/no-extraneous-dependencies */
+/* eslint-disable import/extensions */
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react";
+import postcss from "./postcss.config.js";
 
 // https://vitejs.dev/config/
 export default defineConfig({
   define: {
-    'process.env': process.env
+    "process.env": process.env
   },
   css: {
-    postcss,
+    postcss
   },
   plugins: [react()],
   resolve: {
     alias: [
       {
         find: /^~.+/,
-        replacement: (val) => {
-          return val.replace(/^~/, "");
-        },
-      },
-    ],
+        replacement: (val) => val.replace(/^~/, "")
+      }
+    ]
   },
   build: {
     commonjsOptions: {
-      transformMixedEsModules: true,
+      transformMixedEsModules: true
     }
-  } 
-})
+  }
+});

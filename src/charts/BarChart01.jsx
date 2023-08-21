@@ -222,7 +222,7 @@ function BarChart01({ data, width, height }) {
         <ul ref={legend} className="flex flex-wrap" />
       </div>
       <div className="grow">
-        <canvas ref={canvas} width={width} height={height} />
+        {/* <canvas ref={canvas} width={width} height={height} /> */}
       </div>
     </>
   );

@@ -6,6 +6,9 @@ module.exports = {
   darkMode: "class",
   theme: {
     extend: {
+      spacing: {
+        128: "32rem"
+      },
       colors: {
         school: "#ea580c"
       },

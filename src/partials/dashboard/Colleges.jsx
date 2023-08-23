@@ -1,32 +1,31 @@
 import DoughnutChart from "../../charts/DoughnutChart";
+import useAcadamystats from "../../hooks/dashboard/useAcadamystats";
 
-// Import utilities
-import { tailwindConfig } from "../../utils/Utils";
-
-function DashboardCard06() {
+function Colleges() {
+  const { labels, values } = useAcadamystats();
+  // 生成隨機色碼的函式
+  const getRandomColor = () => {
+    const letters = "0123456789ABCDEF";
+    let color = "#";
+    for (let i = 0; i < 6; i += 1) {
+      color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+  };
   const chartData = {
-    labels: ["電資學院", "管理學院", "社會科學院"],
+    labels,
     datasets: [
       {
         label: "Distribution of colleges",
-        data: [35, 30, 35],
-        backgroundColor: [
-          tailwindConfig().theme.colors.orange[200],
-          tailwindConfig().theme.colors.orange[300],
-          tailwindConfig().theme.colors.orange[500]
-        ],
-        hoverBackgroundColor: [
-          tailwindConfig().theme.colors.orange[300],
-          tailwindConfig().theme.colors.orange[400],
-          tailwindConfig().theme.colors.orange[600]
-        ],
+        data: values,
+        backgroundColor: values?.map(() => getRandomColor()),
         borderWidth: 0
       }
     ]
   };
 
   return (
-    <div className="flex flex-col col-span-full sm:col-span-6 xl:col-span-4 bg-white dark:bg-slate-800 shadow-lg rounded-sm border border-slate-200 dark:border-slate-700">
+    <div className="flex flex-col col-span-full bg-white dark:bg-slate-800 shadow-lg rounded-sm border border-slate-200 dark:border-slate-700">
       <header className="px-5 py-4 border-b border-slate-100 dark:border-slate-700">
         <h2 className="font-semibold text-slate-800 dark:text-slate-100">
           Distribution of colleges
@@ -34,9 +33,9 @@ function DashboardCard06() {
       </header>
       {/* Chart built with Chart.js 3 */}
       {/* Change the height attribute to adjust the chart height */}
-      <DoughnutChart data={chartData} width={389} height={260} />
+      {labels && <DoughnutChart data={chartData} width={389} height={260} />}
     </div>
   );
 }
 
-export default DashboardCard06;
+export default Colleges;

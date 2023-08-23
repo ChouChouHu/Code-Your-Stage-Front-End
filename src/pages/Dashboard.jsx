@@ -9,10 +9,11 @@ import DashboardAvatars from "../partials/dashboard/DashboardAvatars";
 import FilterButton from "../components/DropdownFilter";
 import Datepicker from "../components/Datepicker";
 import Colleges from "../partials/dashboard/Colleges";
-import GenderAndGrade from "../partials/dashboard/GenderAndGrade";
+import Grade from "../partials/dashboard/Grade";
 import ApplicationTime from "../partials/dashboard/ApplicationTime";
 import Abilities from "../partials/dashboard/Abilities";
 import Banner from "../partials/Banner";
+import AbilitiesForm from "../partials/dashboard/AbilitiesForm";
 
 function Dashboard() {
   const [sidebarOpen, setSidebarOpen] = useState(false); // when I setSidebarOpen true, sidebar will open
@@ -41,7 +42,7 @@ function Dashboard() {
                 <Datepicker />
                 {/* Add view button */}
                 <button
-                  className="btn bg-school hover:bg-indigo-600 text-white"
+                  className="btn bg-school hover:bg-orange-500 text-white duration-300"
                   onClick={() => alert("Sorry, 現在還沒有任何功能喔")}
                 >
                   <svg
@@ -56,9 +57,10 @@ function Dashboard() {
             </div>
             {/* Cards */}
             <div className="grid grid-cols-12 gap-6">
-              <Colleges />
+              <Grade />
               <ApplicationTime />
-              <GenderAndGrade />
+              <Colleges />
+              <AbilitiesForm />
               <Abilities />
             </div>
           </div>

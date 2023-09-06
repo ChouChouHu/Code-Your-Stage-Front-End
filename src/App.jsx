@@ -1,16 +1,30 @@
-// App.jsx is the homepage of the React project, let's browse this program.
+import { useEffect } from "react";
+import { Routes, Route, useLocation } from "react-router-dom";
 
-// Here are the basic settings of the project. We use the Tailwind style library and Chart.js in the project.
-import "./css/style.css"; // Import Tailwind CSS
-import "./charts/ChartjsConfig"; // Import Chart.js
+import "./css/style.css";
 
-// Dashboard is one of the pages on our website (currently the only one).
-import Dashboard from "./pages/Dashboard"; // You can find this file (Dashboard) in /pages directory
+import "./charts/ChartjsConfig";
+
+// Import pages
+import Dashboard from "./pages/Dashboard";
+import Chat from "./pages/Chat";
 
 function App() {
+  const location = useLocation();
+
+  useEffect(() => {
+    document.querySelector("html").style.scrollBehavior = "auto";
+    window.scroll({ top: 0 });
+    document.querySelector("html").style.scrollBehavior = "";
+  }, [location.pathname]); // triggered on route change
+
   return (
-    <Dashboard />
-    // To modify the content of our page, please go to ./pages/Dashboard to find the code for this page.
+    <>
+      <Routes>
+        <Route exact path="/" element={<Dashboard />} />
+        <Route exact path="/chat" element={<Chat />} />
+      </Routes>
+    </>
   );
 }
 

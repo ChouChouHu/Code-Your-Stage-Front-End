@@ -4,6 +4,7 @@ import WelcomeBanner from "../partials/dashboard/WelcomeBanner";
 import DashboardAvatars from "../partials/dashboard/DashboardAvatars";
 import FilterButton from "../components/DropdownFilter";
 import Datepicker from "../components/Datepicker";
+import Modal from "../components/Modal";
 import Colleges from "../partials/dashboard/Colleges";
 import Grade from "../partials/dashboard/Grade";
 import ApplicationTime from "../partials/dashboard/ApplicationTime";
@@ -43,6 +44,7 @@ function Dashboard() {
             </button>
           </div>
         </div>
+        <Modal />
         {/* Cards */}
         <div className="grid grid-cols-12 gap-6">
           <Grade />

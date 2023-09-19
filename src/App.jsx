@@ -8,6 +8,7 @@ import "./charts/ChartjsConfig";
 // Import pages
 import Dashboard from "./pages/Dashboard";
 import Chat from "./pages/Chat";
+import Demo from "./pages/Demo";
 
 function App() {
   const location = useLocation();
@@ -23,6 +24,7 @@ function App() {
       <Routes>
         <Route exact path="/" element={<Dashboard />} />
         <Route exact path="/chat" element={<Chat />} />
+        <Route exact path="/demo" element={<Demo />} />
       </Routes>
     </>
   );

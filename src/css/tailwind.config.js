@@ -1,5 +1,6 @@
 /* eslint-disable import/no-extraneous-dependencies */
 const plugin = require("tailwindcss/plugin");
+const colors = require("tailwindcss/colors");
 
 module.exports = {
   content: ["./index.html", "./src/**/*.{js,jsx,ts,tsx}"],
@@ -10,7 +11,8 @@ module.exports = {
         128: "32rem"
       },
       colors: {
-        school: "#ea580c"
+        school: "#ea580c",
+        ...colors
       },
       boxShadow: {
         DEFAULT:
@@ -63,7 +65,7 @@ module.exports = {
   },
   plugins: [
     // eslint-disable-next-line global-require
-    require("@tailwindcss/forms"),
+    // require("@tailwindcss/forms"),
     // add custom variant for expanding sidebar
     plugin(({ addVariant, e }) => {
       addVariant("sidebar-expanded", ({ modifySelectors, separator }) => {

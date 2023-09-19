@@ -1,4 +1,5 @@
 import { createContext, useContext, useState, useEffect } from "react";
+import { ThemeProvider as MaterialThemeProvider } from "@material-tailwind/react";
 
 const ThemeContext = createContext({
   currentTheme: "light",
@@ -33,7 +34,7 @@ export default function ThemeProvider({ children }) {
 
   return (
     <ThemeContext.Provider value={{ currentTheme: theme, changeCurrentTheme }}>
-      {children}
+      <MaterialThemeProvider>{children}</MaterialThemeProvider>
     </ThemeContext.Provider>
   );
 }

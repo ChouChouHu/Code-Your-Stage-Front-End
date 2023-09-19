@@ -24,9 +24,7 @@ export default function CommentBoxTextarea({ text, setText, onClick }) {
       <Textarea
         onChange={(e) => setText(e.target.value)}
         value={text}
-        variant="static"
-        className="bg-slate-100 outline-2 rounded border-slate-400 outline-slate-200 p-4"
-        placeholder="Your Message"
+        label="Message"
         rows={6}
         onKeyDown={handleKeyDown}
         disabled={isLoading}

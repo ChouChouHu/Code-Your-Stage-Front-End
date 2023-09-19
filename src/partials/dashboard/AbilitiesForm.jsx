@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Input, Option, Select } from "@material-tailwind/react";
 import usePostForm from "../../hooks/dashboard/usePostSkills";
 
 function AbilitiesForm() {
@@ -19,19 +20,20 @@ function AbilitiesForm() {
     });
   };
   const renderSelect = (label) => (
-    <div className="mb-4" key={label}>
-      <label className="mb-1">{label}</label>
-      <select
-        className="border rounded ml-4"
+    <div className="mb-6" key={label}>
+      {/* <label>{label}</label> */}
+      <Select
+        label={label}
+        variant="static"
         value={skills[label]}
         onChange={(e) => handleSelectChange(label, Number(e.target.value))}
       >
         {[...Array(11).keys()].map((number) => (
-          <option key={number} value={number}>
+          <Option key={number} value={number}>
             {number}
-          </option>
+          </Option>
         ))}
-      </select>
+      </Select>
     </div>
   );
   return (
@@ -43,9 +45,9 @@ function AbilitiesForm() {
           postForm(studentId, skills);
         }}
       >
-        <div className="mb-4">
-          <label className="block mb-2">請輸入學號</label>
-          <input
+        <div className="mb-8">
+          <Input
+            label="請輸入學號"
             type="text"
             className="w-full border rounded"
             value={studentId}

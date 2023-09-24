@@ -16,8 +16,8 @@ export default function Sidebar({ activeSessionId, setActiveSessionId }) {
   };
 
   useEffect(() => {
-    setActiveSessionId(data?.[0]._id);
-    // default choose the first
+    // default: display the first chat
+    if (data && data.length !== 0) setActiveSessionId(data[0]._id);
   }, [data]);
 
   return (
@@ -36,14 +36,16 @@ export default function Sidebar({ activeSessionId, setActiveSessionId }) {
         </Typography>
       </div>
       <List className="pt-0">
-        {data?.map((chat) => (
-          <ChatListItem
-            title={chat.title}
-            id={chat._id}
-            activeSessionId={activeSessionId}
-            setActiveSessionId={setActiveSessionId}
-          />
-        ))}
+        {data && data.length !== 0
+          ? data.map((chat) => (
+              <ChatListItem
+                title={chat.title}
+                id={chat._id}
+                activeSessionId={activeSessionId}
+                setActiveSessionId={setActiveSessionId}
+              />
+            ))
+          : "沒有任何對話"}
       </List>
     </Card>
   );

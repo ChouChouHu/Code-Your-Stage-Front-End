@@ -1,7 +1,9 @@
+/* eslint-disable no-nested-ternary */
 /* eslint-disable no-underscore-dangle */
 import { Button, Card, Typography, List } from "@material-tailwind/react";
 import { PlusIcon } from "@heroicons/react/24/solid";
 import { useEffect } from "react";
+import Swal from "sweetalert2";
 import useSessions from "../../hooks/chat/useSessions";
 import ChatListItem from "./ChatListItem";
 import useAddingSession from "../../hooks/chat/useAddingSession";
@@ -11,8 +13,12 @@ export default function Sidebar({ activeSessionId, setActiveSessionId }) {
   const { trigger: addSession } = useAddingSession();
   const handleAddSession = async () => {
     addSession();
-    await alert("新增成功");
-    // window.location.reload();
+    await Swal.fire({
+      title: "新增成功",
+      icon: "success",
+      confirmButtonText: "繼續"
+    });
+    window.location.reload();
   };
 
   useEffect(() => {
@@ -35,18 +41,20 @@ export default function Sidebar({ activeSessionId, setActiveSessionId }) {
           History
         </Typography>
       </div>
-      <List className="pt-0">
-        {data && data.length !== 0
-          ? data.map((chat) => (
-              <ChatListItem
-                title={chat.title}
-                id={chat._id}
-                activeSessionId={activeSessionId}
-                setActiveSessionId={setActiveSessionId}
-              />
-            ))
-          : "沒有任何對話"}
-      </List>
+      {data && data.length !== 0 ? (
+        <List className="pt-0">
+          {data.map((chat) => (
+            <ChatListItem
+              title={chat.title}
+              id={chat._id}
+              activeSessionId={activeSessionId}
+              setActiveSessionId={setActiveSessionId}
+            />
+          ))}
+        </List>
+      ) : !data ? null : ( // loading
+        "沒有任何對話" // []
+      )}
     </Card>
   );
 }

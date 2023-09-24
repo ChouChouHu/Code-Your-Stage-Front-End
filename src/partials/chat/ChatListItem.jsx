@@ -12,6 +12,7 @@ import {
   Button
 } from "@material-tailwind/react";
 import { useState } from "react";
+import Swal from "sweetalert2";
 import useDeletingSession from "../../hooks/chat/useDeletingSession";
 import useEditingSessionTitle from "../../hooks/chat/useEditingSessionTitle";
 
@@ -29,13 +30,22 @@ export default function ChatListItem({
 
   const handleEditingSession = async () => {
     editSession(inputTitle);
-    await alert("編輯成功");
+    handleOpen();
+    await Swal.fire({
+      title: "編輯成功",
+      icon: "success",
+      confirmButtonText: "繼續"
+    });
     window.location.reload();
   };
 
   const handleDeletingSession = async () => {
     deleteSession();
-    await alert("刪除成功");
+    await Swal.fire({
+      title: "刪除成功",
+      icon: "success",
+      confirmButtonText: "繼續"
+    });
     window.location.reload();
   };
 

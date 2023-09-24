@@ -1,5 +1,6 @@
 import { Textarea, Button, IconButton } from "@material-tailwind/react";
 import { useState } from "react";
+import Swal from "sweetalert2";
 
 export default function CommentBoxTextarea({ text, setText, onClick }) {
   const [isLoading, setIsLoading] = useState(false);
@@ -51,7 +52,12 @@ export default function CommentBoxTextarea({ text, setText, onClick }) {
           variant="text"
           color="blue-gray"
           size="sm"
-          onClick={() => alert("hey! 還沒開放此功能")}
+          onClick={() =>
+            Swal.fire({
+              title: "尚未開放此功能",
+              confirmButtonText: "繼續"
+            })
+          }
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"

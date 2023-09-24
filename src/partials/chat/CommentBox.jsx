@@ -3,6 +3,8 @@ import { useState } from "react";
 
 export default function CommentBoxTextarea({ text, setText, onClick }) {
   const [isLoading, setIsLoading] = useState(false);
+  const [isComposing, setIsComposing] = useState(false); // to prevent Chinese typing problem
+
   const handleSend = async () => {
     if (!isLoading) {
       setIsLoading(true);
@@ -13,10 +15,23 @@ export default function CommentBoxTextarea({ text, setText, onClick }) {
   };
 
   const handleKeyDown = (e) => {
+    // 檢查是否處於中文輸入模式的 Enter
+    if (isComposing) {
+      return;
+    }
+
     if (e.key === "Enter") {
       e.preventDefault();
       handleSend();
     }
+  };
+
+  const handleCompositionStart = () => {
+    setIsComposing(true);
+  };
+
+  const handleCompositionEnd = () => {
+    setIsComposing(false);
   };
 
   return (
@@ -27,6 +42,8 @@ export default function CommentBoxTextarea({ text, setText, onClick }) {
         label="Message"
         rows={6}
         onKeyDown={handleKeyDown}
+        onCompositionStart={handleCompositionStart}
+        onCompositionEnd={handleCompositionEnd}
         disabled={isLoading}
       />
       <div className="flex w-full justify-between py-1.5">

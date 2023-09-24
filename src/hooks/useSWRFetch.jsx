@@ -1,5 +1,4 @@
 /* eslint-disable no-shadow */
-// import { parseCookies } from "nookies";
 import { useState } from "react";
 // eslint-disable-next-line import/no-extraneous-dependencies
 import useSWR, { useSWRConfig } from "swr";

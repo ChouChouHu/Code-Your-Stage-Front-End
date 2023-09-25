@@ -7,7 +7,6 @@ import {
 	RedirectToSignIn,
 	SignIn,
 	SignUp,
-	UserButton,
 } from '@clerk/clerk-react'
 
 import './css/style.css'
@@ -23,6 +22,7 @@ if (!import.meta.env.VITE_CLERK_PUBLISHABLE_KEY) {
 }
 
 const clerkPubKey = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY
+
 function App() {
 	const location = useLocation()
 

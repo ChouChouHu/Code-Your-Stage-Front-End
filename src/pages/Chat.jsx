@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Layout from "../partials/Layout";
 import Sidebar from "../partials/chat/Sidebar";
-import MessageWindow from "../partials/chat/MessageWindow";
+import ChatWindow from "../partials/chat/Window";
 
 function Chat() {
   const [activeSessionId, setActiveSessionId] = useState(null);
@@ -15,7 +15,7 @@ function Chat() {
           activeSessionId={activeSessionId}
           setActiveSessionId={setActiveSessionId}
         />
-        {activeSessionId && <MessageWindow activeSessionId={activeSessionId} />}
+        {activeSessionId && <ChatWindow activeSessionId={activeSessionId} />}
       </div>
     </Layout>
   );

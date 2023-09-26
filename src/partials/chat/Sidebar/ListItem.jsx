@@ -13,8 +13,8 @@ import {
 } from "@material-tailwind/react";
 import { useState } from "react";
 import Swal from "sweetalert2";
-import useDeletingSession from "../../hooks/chat/useDeletingSession";
-import useEditingSessionTitle from "../../hooks/chat/useEditingSessionTitle";
+import useDeletingSession from "../../../hooks/chat/useDeletingSession";
+import useEditingSessionTitle from "../../../hooks/chat/useEditingSessionTitle";
 
 export default function ChatListItem({
   title,

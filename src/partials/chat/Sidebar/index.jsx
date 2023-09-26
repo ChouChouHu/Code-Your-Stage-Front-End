@@ -4,9 +4,9 @@ import { Button, Card, Typography, List } from "@material-tailwind/react";
 import { PlusIcon } from "@heroicons/react/24/solid";
 import { useEffect } from "react";
 import Swal from "sweetalert2";
-import useSessions from "../../hooks/chat/useSessions";
-import ChatListItem from "./ChatListItem";
-import useAddingSession from "../../hooks/chat/useAddingSession";
+import useSessions from "../../../hooks/chat/useSessions";
+import ListItem from "./ListItem";
+import useAddingSession from "../../../hooks/chat/useAddingSession";
 
 export default function Sidebar({ activeSessionId, setActiveSessionId }) {
   const data = useSessions();
@@ -44,11 +44,12 @@ export default function Sidebar({ activeSessionId, setActiveSessionId }) {
       {data && data.length !== 0 ? (
         <List className="pt-0">
           {data.map((chat) => (
-            <ChatListItem
+            <ListItem
               title={chat.title}
               id={chat._id}
               activeSessionId={activeSessionId}
               setActiveSessionId={setActiveSessionId}
+              key={chat._id}
             />
           ))}
         </List>

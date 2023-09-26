@@ -5,7 +5,7 @@ import useSWRPost from '../useSWRPost'
 
 export default () => {
 	const { user } = useUser()
-	console.log(user.id)
+	// console.log(user.id)
 
 	const apiUrl = `https://api.projectszero.tech/session/${user.id}`
 

@@ -9,8 +9,8 @@ export default function CommentBoxTextarea({ text, setText, onClick }) {
   const handleSend = async () => {
     if (!isLoading) {
       setIsLoading(true);
-      await onClick(); // API
       setText("");
+      await onClick(); // API
       setIsLoading(false);
     }
   };

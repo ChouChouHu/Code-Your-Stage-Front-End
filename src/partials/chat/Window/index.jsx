@@ -10,9 +10,9 @@ export default function Window({ activeSessionId }) {
   const [commentText, setCommentText] = useState("");
 
   const handleClickSending = async () => {
-    // mutate({messages: [ ...messages, commentText ]}, {revalidate: false});
-    // await sendSessionMessage({ content: commentText });
-    // mutate({messages: newMessagesAfterSending});
+    mutate({messages: [ ...messages, commentText ]}, {revalidate: false});
+    await sendSessionMessage({ content: commentText });
+    mutate({messages: newMessagesAfterSending});
   };
 
   return (

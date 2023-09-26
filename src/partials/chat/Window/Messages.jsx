@@ -2,7 +2,6 @@ import { useEffect, useRef } from "react";
 
 export default function Messages({ messages }) {
   // scroll to bottom when receiving new messages
-  // console.log(messages)
   const chatWindowRef = useRef(null);
   useEffect(() => {
     chatWindowRef.current.scrollTo(0, chatWindowRef.current.scrollHeight);

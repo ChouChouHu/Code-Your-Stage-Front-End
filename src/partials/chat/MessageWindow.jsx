@@ -4,19 +4,19 @@ import useSessionMessages from "../../hooks/chat/useSessionMessages";
 import useSendingSessionMessage from "../../hooks/chat/useSendingSessionMessage";
 
 function MessageWindow({ activeSessionId }) {
-  const { messages: apiMessages, mutate } = useSessionMessages(activeSessionId);
-  const [messages, setMessages] = useState([]);
+  const { messages: fetchedMessages, mutate } = useSessionMessages(activeSessionId);
+  const [displayedMessages, setMessages] = useState(fetchedMessages || []);
   const messageWindowRef = useRef(null);
 
   useEffect(() => {
-    if (apiMessages) setMessages(apiMessages);
-  }, [apiMessages]);
+    if (fetchedMessages) setMessages(fetchedMessages);
+  }, [fetchedMessages]);
 
   useEffect(() => {
     messageWindowRef.current.scrollTo(0, messageWindowRef.current.scrollHeight);
-  }, [messages]);
+  }, [displayedMessages]);
 
-  const { trigger: sendSession, isMutating: isSendingLoading } = useSendingSessionMessage(activeSessionId);
+  const { trigger: sendSession, isMutating: isMessageSending } = useSendingSessionMessage(activeSessionId);
   const [commentText, setCommentText] = useState("");
 
   const handleClickSending = async () => {
@@ -25,8 +25,8 @@ function MessageWindow({ activeSessionId }) {
   };
 
   useEffect(() => {
-    if (!isSendingLoading) mutate();
-  }, [isSendingLoading])
+    if (!isMessageSending) mutate();
+  }, [isMessageSending])
 
   const isOdd = (index) => index % 2 === 0;
 
@@ -36,7 +36,7 @@ function MessageWindow({ activeSessionId }) {
         ref={messageWindowRef}
         className="flex flex-col w-full p-4 py-6 h-[64%] border-solid rounded-xl overflow-scroll scrollbar-hide"
       >
-        {messages.map((message, index) => (
+        {displayedMessages.map((message, index) => (
           <div
             className={`flex ${isOdd(index) ? "justify-end" : "justify-start"}`}
             key={message}

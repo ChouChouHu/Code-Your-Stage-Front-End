@@ -1,9 +1,10 @@
 import { useState } from "react";
+import { Spinner } from "@material-tailwind/react";
 import CommentBoxTextarea from "./CommentBox";
 import useSessionMessages from "../../../hooks/chat/useSessionMessages";
 import useSendingSessionMessage from "../../../hooks/chat/useSendingSessionMessage";
 import Messages from "./Messages";
-import { Spinner } from "@material-tailwind/react";
+
 
 export default function Window({ activeSessionId }) {
   const { messages, mutate } = useSessionMessages(activeSessionId);

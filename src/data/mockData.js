@@ -26,7 +26,7 @@ export const applicationStats = {
   values: [1, 1, 1, 1, 1, 1, 2, 4, 5, 2, 8, 2, 4, 5, 3, 7, 5]
 };
 
-export const acadamuyStats = {
+export const academyStats = {
   labels: ["農學院", "文學院", "電資學院", "社會科學院", "管理學院", "工學院"],
   values: [1, 1, 8, 2, 4, 6]
 };
@@ -39,5 +39,5 @@ export const skills = {
     "design thinking",
     "frontend"
   ],
-  values: [4, 2, 2, 3, 2]
+  values: [3, 3, 3, 3, 3]
 };

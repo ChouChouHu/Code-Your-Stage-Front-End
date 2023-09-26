@@ -10,9 +10,9 @@ import {
 import { Radar } from "react-chartjs-2";
 
 // Import utilities
-import { useCookies } from "react-cookie";
+// import { useCookies } from "react-cookie";
 import { tailwindConfig } from "../../utils/Utils";
-import useSkills from "../../hooks/dashboard/useSkills";
+import { skills } from "../../data/mockData";
 
 ChartJS.register(
   RadialLinearScale,
@@ -23,9 +23,11 @@ ChartJS.register(
   Legend
 );
 
-function Abilities() {
-  const [cookies] = useCookies(["studentId"]);
-  const { labels, values, isEmpty } = useSkills(cookies.studentId);
+function Skills() {
+  // const [cookies] = useCookies(["studentId"]);
+  // const { studentId } = cookies;
+  const studentId = "B11000000";
+  const { labels, values } = skills;
   const chartData = {
     labels,
     datasets: [
@@ -40,15 +42,15 @@ function Abilities() {
   };
 
   return (
-    <div className="flex flex-col col-span-12 sm:col-span-6 bg-white dark:bg-slate-800 shadow-lg rounded-sm border border-slate-200 dark:border-slate-700">
-      <header className="px-5 py-4 border-b border-slate-100 dark:border-slate-700 flex items-center">
+    <div className="flex">
+      <header className="">
         <h2 className="font-semibold text-slate-800 dark:text-slate-100">
-          Abilities
+          Skills
         </h2>
       </header>
-      {!isEmpty ? (
+      {studentId ? (
         <div className="flex align-center flex-col px-28">
-          <div className="text-center my-4">學號：{cookies.studentId}</div>
+          <div className="text-center my-4">學號：{studentId}</div>
           <Radar data={chartData} />
         </div>
       ) : (
@@ -58,4 +60,4 @@ function Abilities() {
   );
 }
 
-export default Abilities;
+export default Skills;

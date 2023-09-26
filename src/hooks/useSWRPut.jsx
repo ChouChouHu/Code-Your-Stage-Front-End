@@ -12,9 +12,9 @@ async function sendRequest(url, { arg }) {
 }
 
 export default (url) => {
-	const { trigger, isMutating } = useSWRMutation(
+	const { data, trigger, isMutating } = useSWRMutation(
 		url,
 		sendRequest /* options */
 	)
-	return { trigger, isMutating }
+	return { data, trigger, isMutating }
 }

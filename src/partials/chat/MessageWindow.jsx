@@ -4,29 +4,33 @@ import useSessionMessages from "../../hooks/chat/useSessionMessages";
 import useSendingSessionMessage from "../../hooks/chat/useSendingSessionMessage";
 
 function MessageWindow({ activeSessionId }) {
-  const { messages: fetchedMessages, mutate } = useSessionMessages(activeSessionId);
-  const [displayedMessages, setMessages] = useState(fetchedMessages || []);
-  const messageWindowRef = useRef(null);
+  // get messages
+  const { messages: fetchedMessages } = useSessionMessages(activeSessionId);
+  const [displayedMessages, setDisplayedMessages] = useState(fetchedMessages || []);
 
   useEffect(() => {
-    if (fetchedMessages) setMessages(fetchedMessages);
+    if (fetchedMessages) setDisplayedMessages(fetchedMessages);
   }, [fetchedMessages]);
 
-  useEffect(() => {
-    messageWindowRef.current.scrollTo(0, messageWindowRef.current.scrollHeight);
-  }, [displayedMessages]);
-
-  const { trigger: sendSession, isMutating: isMessageSending } = useSendingSessionMessage(activeSessionId);
+  // send message and update
+  const { trigger: sendSessionMessage, messages: newMessagesAfterSending } = useSendingSessionMessage(activeSessionId);
   const [commentText, setCommentText] = useState("");
 
   const handleClickSending = async () => {
-    setMessages((prev) => [...prev, commentText]);
-    sendSession({ content: commentText });
+    setDisplayedMessages((prev) => [...prev, commentText]);
+    await sendSessionMessage({ content: commentText });
+    // async await for loading state of comment box
   };
 
   useEffect(() => {
-    if (!isMessageSending) mutate();
-  }, [isMessageSending])
+    if (newMessagesAfterSending) setDisplayedMessages(newMessagesAfterSending)
+  }, [newMessagesAfterSending])
+
+  // scroll to bottom when receiving new messages
+  const messageWindowRef = useRef(null);
+  useEffect(() => {
+    messageWindowRef.current.scrollTo(0, messageWindowRef.current.scrollHeight);
+  }, [displayedMessages]);
 
   const isOdd = (index) => index % 2 === 0;
 

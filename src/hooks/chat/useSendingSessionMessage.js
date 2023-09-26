@@ -3,7 +3,7 @@ import useSWRPut from "../useSWRPut";
 export default (sessionId) => {
   const apiUrl = `https://api.projectszero.tech/session/${sessionId}/messages`;
 
-  const { trigger, isMutating } = useSWRPut(apiUrl); // 發送 PUT 請求
+  const { data, trigger, isMutating } = useSWRPut(apiUrl); // 發送 PUT 請求
 
-  return { trigger, isMutating };
+  return { messages: data && data.messages, trigger, isMutating };
 };

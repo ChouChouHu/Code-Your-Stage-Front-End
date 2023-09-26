@@ -1,14 +1,10 @@
 /* eslint-disable no-shadow */
 import { useState } from "react";
-// eslint-disable-next-line import/no-extraneous-dependencies
-import useSWR, { useSWRConfig } from "swr";
+import useSWR from "swr";
 
 export default (url, options) => {
-  // const cookies = parseCookies();
-  // const { accessToken } = cookies;
-  const { mutate } = useSWRConfig();
   const [isSent, setIsSent] = useState(false);
-  const { data, error } = useSWR(
+  const { data, error, isLoading, mutate } = useSWR(
     url,
     async (fetchUrl) => {
       const res = await fetch(fetchUrl, {
@@ -51,15 +47,6 @@ export default (url, options) => {
   if (error) {
     console.log(error);
   }
-  // console.log(data);
 
-  return { data, error };
+  return { data, error, isLoading, mutate };
 };
-
-// (url) => axios({
-//     method: 'get',
-//     crossDomain: true,
-//     async: true,
-//     url
-// }),
-// 'data': res?.data.result

@@ -4,7 +4,7 @@ import useSessionMessages from "../../hooks/chat/useSessionMessages";
 import useSendingSessionMessage from "../../hooks/chat/useSendingSessionMessage";
 
 function MessageWindow({ activeSessionId }) {
-  const apiMessages = useSessionMessages(activeSessionId);
+  const { messages: apiMessages, mutate } = useSessionMessages(activeSessionId);
   const [messages, setMessages] = useState([]);
   const messageWindowRef = useRef(null);
 
@@ -16,12 +16,17 @@ function MessageWindow({ activeSessionId }) {
     messageWindowRef.current.scrollTo(0, messageWindowRef.current.scrollHeight);
   }, [messages]);
 
-  const { trigger } = useSendingSessionMessage(activeSessionId);
+  const { trigger: sendSession, isMutating: isSendingLoading } = useSendingSessionMessage(activeSessionId);
   const [commentText, setCommentText] = useState("");
-  const handleClickSending = () => {
+
+  const handleClickSending = async () => {
     setMessages((prev) => [...prev, commentText]);
-    trigger({ content: commentText });
+    sendSession({ content: commentText });
   };
+
+  useEffect(() => {
+    if (!isSendingLoading) mutate();
+  }, [isSendingLoading])
 
   const isOdd = (index) => index % 2 === 0;
 

@@ -2,6 +2,7 @@ import { useEffect, useRef } from "react";
 
 export default function Messages({ messages }) {
   // scroll to bottom when receiving new messages
+  // console.log(messages)
   const chatWindowRef = useRef(null);
   useEffect(() => {
     chatWindowRef.current.scrollTo(0, chatWindowRef.current.scrollHeight);
@@ -18,7 +19,8 @@ export default function Messages({ messages }) {
         {messages?.map((message, index) => (
           <div
             className={`flex ${isOdd(index) ? "justify-end" : "justify-start"}`}
-            key={message}
+            // eslint-disable-next-line react/no-array-index-key
+            key={message+index}
           >
             <div
               className={`px-4 py-2 my-1 rounded-3xl max-w-[80%] ${

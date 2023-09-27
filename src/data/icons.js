@@ -65,7 +65,6 @@ export const chart = [
   }
 ];
 
-
 export const telescope = [
   {
     originColor: "text-orange-600",
@@ -84,7 +83,7 @@ export const telescope = [
   }
 ];
 
-export const tesk = [
+export const task = [
   {
     originColor: "text-orange-500",
     activeColor: "text-slate-600",
@@ -141,7 +140,7 @@ export const calendar = [
   },
 ];
 
-export const startshine = [
+export const starshine = [
   {
     originColor: "text-orange-500",
     activeColor: "text-slate-600",

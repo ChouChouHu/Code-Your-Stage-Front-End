@@ -2,21 +2,58 @@ import { useState, useEffect, useRef } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 
 import SidebarLinkGroup from "./SidebarLinkGroup";
-import { compass, people } from "../data/icons";
+import { calendar, chart, messages, square, starshine, task } from "../data/icons";
 import Icon from "../components/Icon";
 
 function Sidebar({ sidebarOpen, setSidebarOpen }) {
   const sitemap = [
     {
-      title: "Dashboard",
-      path: "dashboard",
-      sublinks: [{ title: "Main", path: "main" }],
-      svgMeta: compass
+      title: "Chart",
+      path: "chart",
+      svgMeta: chart
     },
     {
       title: "Chat",
       path: "chat",
-      svgMeta: people
+      svgMeta: messages
+    },
+    {
+      title: "Form",
+      path: "form",
+      svgMeta: calendar
+    },
+    {
+      title: "Table",
+      path: "table",
+      svgMeta: square
+    },
+    {
+      title: "Alert",
+      path: "alert",
+      svgMeta: task
+    },
+    {
+      title: "MUI",
+      path: "mui",
+      svgMeta: starshine,
+      sublinks: [
+        {
+          title: "modal",
+          path: "modal"
+        },
+        {
+          title: "pagination",
+          path: "pagination"
+        },
+        {
+          title: "card",
+          path: "card"
+        },
+        {
+          title: "carousel",
+          path: "carousel"
+        },
+      ]
     }
   ];
 
@@ -198,7 +235,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                 ) : (
                   <li
                     className={`px-3 py-2 rounded-sm mb-0.5 last:mb-0 ${
-                      pathname.includes("chat") && "bg-slate-900"
+                      pathname.includes(category.path) && "bg-slate-900"
                     }`}
                   >
                     <NavLink
@@ -220,7 +257,6 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                   </li>
                 )
               )}
-
             </ul>
           </div>
           {/* More group */}

@@ -35,7 +35,7 @@ function App() {
 	return (
 		<ClerkProvider publishableKey={clerkPubKey}>
 			<Routes>
-				<Route exact path="/zoo/dashboard/main" element={<Dashboard />} />
+				<Route exact path="/zoo/chart" element={<Dashboard />} />
 				<Route
 					path="/sign-in/*"
 					element={<SignIn routing="path" path="/sign-in" />}

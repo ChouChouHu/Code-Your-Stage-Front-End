@@ -35,7 +35,7 @@ function App() {
 	return (
 		<ClerkProvider publishableKey={clerkPubKey}>
 			<Routes>
-				<Route exact path="/" element={<Dashboard />} />
+				<Route exact path="/zoo/dashboard/main" element={<Dashboard />} />
 				<Route
 					path="/sign-in/*"
 					element={<SignIn routing="path" path="/sign-in" />}
@@ -45,7 +45,7 @@ function App() {
 					element={<SignUp routing="path" path="/sign-up" />}
 				/>
 				<Route
-					path="/chat"
+					path="/zoo/chat"
 					element={
 						<>
 							<SignedIn>

@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { Routes, Route, useLocation } from 'react-router-dom'
+import { Routes, Route, useLocation, Navigate } from 'react-router-dom'
 import {
 	ClerkProvider,
 	SignedIn,
@@ -17,6 +17,16 @@ import './charts/ChartjsConfig'
 import Dashboard from './pages/Dashboard'
 import Chat from './pages/Chat'
 import Home from './pages/Home'
+import NotFound from './pages/404'
+import Alert from './pages/Alert'
+import Table from './pages/Table'
+import Form from './pages/Form'
+import FormFile from './pages/Form/file'
+import Calendar from './pages/Form/Calendar'
+import Modal from './pages/MUI/Modal'
+import Pagination from './pages/MUI/Pagination'
+import Card from './pages/MUI/Card'
+import Carousel from './pages/MUI/Carousel'
 
 if (!import.meta.env.VITE_CLERK_PUBLISHABLE_KEY) {
 	throw new Error('Missing Publishable Key')
@@ -37,8 +47,17 @@ function App() {
 		<ClerkProvider publishableKey={clerkPubKey}>
 			<Routes>
 				<Route exact path="/" element={<Home />} />
-				<Route exact path="/zoo" element={<Dashboard />} />
+				<Route exact path="/zoo" element={<Navigate to="/zoo/chart" />} />
 				<Route exact path="/zoo/chart" element={<Dashboard />} />
+				<Route exact path="/zoo/alert" element={<Alert />} />
+				<Route exact path="/zoo/table" element={<Table />} />
+				<Route exact path="/zoo/form/typical" element={<Form />} />
+				<Route exact path="/zoo/form/file" element={<FormFile />} />
+				<Route exact path="/zoo/form/calendar" element={<Calendar />} />
+				<Route exact path="/zoo/mui/modal" element={<Modal />} />
+				<Route exact path="/zoo/mui/pagination" element={<Pagination />} />
+				<Route exact path="/zoo/mui/card" element={<Card />} />
+				<Route exact path="/zoo/mui/carousel" element={<Carousel />} />
 				<Route
 					path="/sign-in/*"
 					element={<SignIn routing="path" path="/sign-in" />}
@@ -59,6 +78,10 @@ function App() {
 							</SignedOut>
 						</>
 					}
+				/>
+				<Route
+					path="*"
+					element={<NotFound />}
 				/>
 			</Routes>
 		</ClerkProvider>

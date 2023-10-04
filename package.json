@@ -17,6 +17,7 @@
     "dotenv": "^16.3.1",
     "moment": "^2.29.4",
     "react": "^18.2.0",
+    "react-calendar": "^4.6.0",
     "react-chartjs-2": "^5.2.0",
     "react-cookie": "^6.1.0",
     "react-dom": "^18.2.0",
@@ -25,7 +26,8 @@
     "react-transition-group": "^4.4.5",
     "sweetalert2": "^11.7.28",
     "swr": "^2.2.1",
-    "tailwind-scrollbar-hide": "^1.1.7"
+    "tailwind-scrollbar-hide": "^1.1.7",
+    "use-react-countries": "^1.1.0"
   },
   "devDependencies": {
     "@vitejs/plugin-react": "^3.1.0",

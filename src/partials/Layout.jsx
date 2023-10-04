@@ -1,24 +1,12 @@
-import { useState } from "react";
-import Banner from "./Banner";
-import Sidebar from "./Sidebar";
+import FooterWithSocialLinks from "./Footer";
 import Header from "./Header";
 
-function Layout({ children }) {
-  const [sidebarOpen, setSidebarOpen] = useState(false); // when I setSidebarOpen true, sidebar will open
-
+export default function Layout({ children }) {
   return (
-    <div className="flex h-screen overflow-hidden">
-      {/* Sidebar */}
-      <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
-      {/* Content area */}
-      <div className="relative flex flex-col flex-1 overflow-y-auto overflow-x-hidden">
-        {/*  Site header */}
-        <Header sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
-        <main>{children}</main>
-        {/* <Banner /> */}
-      </div>
+    <div>
+      <Header />
+      {children}
+      <FooterWithSocialLinks />
     </div>
   );
 }
-
-export default Layout;

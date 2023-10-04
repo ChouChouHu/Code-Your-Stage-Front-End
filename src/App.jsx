@@ -16,6 +16,7 @@ import './charts/ChartjsConfig'
 // Import pages
 import Dashboard from './pages/Dashboard'
 import Chat from './pages/Chat'
+import Home from './pages/Home'
 
 if (!import.meta.env.VITE_CLERK_PUBLISHABLE_KEY) {
 	throw new Error('Missing Publishable Key')
@@ -35,6 +36,8 @@ function App() {
 	return (
 		<ClerkProvider publishableKey={clerkPubKey}>
 			<Routes>
+				<Route exact path="/" element={<Home />} />
+				<Route exact path="/zoo" element={<Dashboard />} />
 				<Route exact path="/zoo/chart" element={<Dashboard />} />
 				<Route
 					path="/sign-in/*"

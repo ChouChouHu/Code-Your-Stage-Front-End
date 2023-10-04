@@ -1,5 +1,4 @@
-function Default({}) {
+export default function Default({}) {
   return <div />;
 }
 
-export default Default;

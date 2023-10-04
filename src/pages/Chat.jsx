@@ -1,7 +1,7 @@
 // Below are all the components used on this page.
 // If you need to modify a component, please look for clues to make changes in the respective component file.
 import { useState } from "react";
-import Layout from "../partials/Layout";
+import Layout from "../partials/dashboard/Layout";
 import Sidebar from "../partials/chat/Sidebar";
 import ChatWindow from "../partials/chat/Window";
 

@@ -2,8 +2,8 @@ import { useState, useEffect, useRef } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 
 import SidebarLinkGroup from "./SidebarLinkGroup";
-import { calendar, chart, messages, square, starshine, task } from "../data/icons";
-import Icon from "../components/Icon";
+import { calendar, chart, messages, square, starshine, task } from "../../data/icons";
+import Icon from "../../components/Icon";
 
 function Sidebar({ sidebarOpen, setSidebarOpen }) {
   const sitemap = [
@@ -20,7 +20,21 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
     {
       title: "Form",
       path: "form",
-      svgMeta: calendar
+      svgMeta: calendar,
+      sublinks: [
+        {
+          title: "typical",
+          path: "typical"
+        },
+        {
+          title: "file",
+          path: "file"
+        },
+        {
+          title: "calendar",
+          path: "calendar"
+        },
+      ]
     },
     {
       title: "Table",
@@ -323,7 +337,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                         <li className="mb-1 last:mb-0">
                           <NavLink
                             end
-                            to="/signin"
+                            to="/sign-in"
                             className="block text-slate-400 hover:text-slate-200 transition duration-150 truncate"
                           >
                             <span className="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">
@@ -334,7 +348,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                         <li className="mb-1 last:mb-0">
                           <NavLink
                             end
-                            to="/signup"
+                            to="/sign-up"
                             className="block text-slate-400 hover:text-slate-200 transition duration-150 truncate"
                           >
                             <span className="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">

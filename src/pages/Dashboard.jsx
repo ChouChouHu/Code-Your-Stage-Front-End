@@ -2,8 +2,8 @@ import { useState } from "react";
 
 // Below are all the components used on this page.
 // If you need to modify a component, please look for clues to make changes in the respective component file.
-import Sidebar from "../partials/Sidebar";
-import Header from "../partials/Header";
+import Sidebar from "../partials/dashboard/Sidebar";
+import Header from "../partials/dashboard/Header";
 import WelcomeBanner from "../partials/dashboard/WelcomeBanner";
 import DashboardAvatars from "../partials/dashboard/DashboardAvatars";
 import FilterButton from "../components/DropdownFilter";
@@ -13,7 +13,7 @@ import ApplicationTime from "../partials/dashboard/ApplicationTime";
 import Academy from "../partials/dashboard/Academy";
 import SkillsForm from "../partials/dashboard/SkillsForm";
 import Skills from "../partials/dashboard/Skills";
-import Banner from "../partials/Banner";
+import Banner from "../partials/dashboard/Banner";
 
 function Dashboard() {
   const [sidebarOpen, setSidebarOpen] = useState(false); // when I setSidebarOpen true, sidebar will open

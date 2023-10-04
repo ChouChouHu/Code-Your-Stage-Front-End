@@ -20,6 +20,7 @@ import {
   CreditCardIcon,
   LockClosedIcon
 } from "@heroicons/react/24/solid";
+import Swal from "sweetalert2";
 
 function formatCardNumber(value) {
   const val = value.replace(/\s+/g, "").replace(/[^0-9]/gi, "");
@@ -33,9 +34,8 @@ function formatCardNumber(value) {
 
   if (parts.length) {
     return parts.join(" ");
-  } 
-    return value;
-  
+  }
+  return value;
 }
 
 function formatExpires(value) {
@@ -139,7 +139,17 @@ export default function CheckoutForm() {
                   </div>
                   <Input label="Holder Name" />
                 </div>
-                <Button size="lg">Pay Now</Button>
+                <Button
+                  onClick={() =>
+                    Swal.fire({
+                      title: "Pay with Card",
+                      text: `card number: ${cardNumber}`
+                    })
+                  }
+                  size="lg"
+                >
+                  Pay Now
+                </Button>
                 <Typography
                   variant="small"
                   color="gray"
@@ -184,7 +194,17 @@ export default function CheckoutForm() {
                     containerProps={{ className: "mt-4" }}
                   />
                 </div>
-                <Button size="lg" color="amber" className="relative h-12">
+                <Button
+                  size="lg"
+                  color="amber"
+                  className="relative h-12"
+                  onClick={() =>
+                    Swal.fire({
+                      title: "Pay with PayPal",
+                      text: `There is no state tracking. Please check the code.`
+                    })
+                  }
+                >
                   <img
                     alt="paypal "
                     className="absolute top-2/4 left-2/4 w-16 -translate-x-2/4 -translate-y-2/4"

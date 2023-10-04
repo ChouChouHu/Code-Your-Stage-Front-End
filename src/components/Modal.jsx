@@ -4,34 +4,35 @@ import {
   Dialog,
   DialogHeader,
   DialogBody,
-  DialogFooter,
+  DialogFooter
 } from "@material-tailwind/react";
- 
-const sampleTitle = 'Its a simple dialog.'
+
+const sampleTitle = "Its a simple dialog.";
 
 const sampleText = `The key to more success is to have a lot of pillows. Put it this way,
 it took me twenty five years to get these plants, twenty five years of
 blood sweat and tears, and I&apos;m never giving up, I&apos;m just
-getting started. I&apos;m up to something. Fan luv.`
+getting started. I&apos;m up to something. Fan luv.`;
 
-const sampleButtonText = 'Open Dialog'
+const sampleButtonText = "Open Dialog";
 
 export default function Modal({
   title = sampleTitle,
   text = sampleText,
   buttonText = sampleButtonText,
   children = undefined,
+  ...props
 }) {
   const [open, setOpen] = useState(false);
- 
+
   const handleOpen = () => setOpen(!open);
- 
+
   return (
     <>
       <Button onClick={handleOpen} variant="gradient">
         {buttonText}
       </Button>
-      <Dialog open={open} handler={handleOpen}>
+      <Dialog open={open} handler={handleOpen} {...props}>
         <DialogHeader>{title}</DialogHeader>
         <DialogBody divider>
           {text}

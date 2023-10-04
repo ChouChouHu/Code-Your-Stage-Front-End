@@ -1,6 +1,6 @@
 import Layout from "../../partials/dashboard/Layout";
-import CheckoutForm from "../../partials/dashboard/form/CheckoutForm";
-import TailwindForm from "../../partials/dashboard/form/TailwindForm";
+import CheckoutForm from "../../partials/form/CheckoutForm";
+import TailwindForm from "../../partials/form/TailwindForm";
 
 export default function Form() {
   return (

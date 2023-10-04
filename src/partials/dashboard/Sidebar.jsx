@@ -1,9 +1,10 @@
 import { useState, useEffect, useRef } from "react";
-import { NavLink, useLocation } from "react-router-dom";
+import { Link, NavLink, useLocation } from "react-router-dom";
 
 import SidebarLinkGroup from "./SidebarLinkGroup";
 import { calendar, chart, messages, square, starshine, task } from "../../data/icons";
 import Icon from "../../components/Icon";
+import { ArrowLeftIcon } from "@heroicons/react/24/solid";
 
 function Sidebar({ sidebarOpen, setSidebarOpen }) {
   const sitemap = [
@@ -16,6 +17,11 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
       title: "Chat",
       path: "chat",
       svgMeta: messages
+    },
+    {
+      title: "React Hook",
+      path: "hook",
+      svgMeta: task
     },
     {
       title: "Form",
@@ -42,11 +48,6 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
       svgMeta: square
     },
     {
-      title: "Alert",
-      path: "alert",
-      svgMeta: task
-    },
-    {
       title: "MUI",
       path: "mui",
       svgMeta: starshine,
@@ -60,15 +61,11 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
           path: "pagination"
         },
         {
-          title: "card",
-          path: "card"
-        },
-        {
           title: "carousel",
           path: "carousel"
         },
       ]
-    }
+    },
   ];
 
   const location = useLocation();
@@ -163,6 +160,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
         <div className="h-full flex flex-col justify-between space-y-8">
           {/* Pages group */}
           <div>
+            <Link to="/" className="pl-3 underline mb-6 flex hover:text-white"><ArrowLeftIcon className="mr-1" width="15" />back home</Link>
             <h3 className="text-xs uppercase text-slate-500 font-semibold pl-3">
               <span
                 className="hidden lg:block lg:sidebar-expanded:hidden 2xl:hidden text-center w-6"

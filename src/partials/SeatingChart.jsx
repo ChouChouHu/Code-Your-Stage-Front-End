@@ -20,6 +20,21 @@ const studentList = [
   "Joy"
 ];
 
+const arrangement = [
+  {
+    size: 6,
+    isBack: false
+  },
+  {
+    size: 6,
+    isBack: false
+  },
+  {
+    size: 6,
+    isBack: false
+  }
+];
+
 export default function SeatingChart({ defaultStudents = studentList.sort() }) {
   const [students, setStudents] = useState(defaultStudents);
   const rollTheDice = () => {
@@ -35,15 +50,25 @@ export default function SeatingChart({ defaultStudents = studentList.sort() }) {
     setStudents(shuffleArray([...students]));
   };
 
+  function getStudentGroup(groupIndex, studentsToArrange) {
+    const start = arrangement
+      .slice(0, groupIndex)
+      .reduce((total, item) => total + item.size, 0);
+    const end = start + arrangement[groupIndex].size;
+
+    return studentsToArrange.slice(start, end);
+  }
+
   const borderClass = `border-2 border-slate-400`;
 
   return (
     <div className="relative flex justify-center">
       <button
-        className="w-20 h-20 rounded-[50%] bg-slate-400 font-extrabold text-white absolute left-0 top-0 ml-[-100px] flex justify-center items-center"
+        className="w-14 rounded-[50%] font-extrabold text-white absolute left-0 top-0 ml-[-50px] flex justify-center items-center leading-4"
         onClick={rollTheDice}
       >
-        Roll the Dice
+        {/* Roll the Dice */}
+        <img src="/public/images/dice.png" alt="dice" />
       </button>
       <div className="w-[500px]">
         {/* {studentNumber} */}
@@ -57,14 +82,26 @@ export default function SeatingChart({ defaultStudents = studentList.sort() }) {
           <div className="flex mt-10 justify-between">
             <div>
               <div className="flex h-[420px]">
-                <Seats number="6" studentGroup={students.slice(0, 6)} />
+                <Seats
+                  number="6"
+                  studentGroup={getStudentGroup(0, students)}
+                  isBack={arrangement[0].isBack}
+                />
                 <div className={`${borderClass} h-full w-24`} />
-                <Seats number="6" studentGroup={students.slice(6, 12)} />
+                <Seats
+                  number="6"
+                  studentGroup={getStudentGroup(1, students)}
+                  isBack={arrangement[1].isBack}
+                />
               </div>
             </div>
             <div>
               <div className="h-[420px] flex">
-                <Seats number="6" studentGroup={students.slice(12, 18)} />
+                <Seats
+                  number="6"
+                  studentGroup={getStudentGroup(2, students)}
+                  isBack={arrangement[2].isBack}
+                />
                 <div className={`${borderClass} h-full w-24`} />
               </div>
             </div>
@@ -76,10 +113,9 @@ export default function SeatingChart({ defaultStudents = studentList.sort() }) {
 }
 
 function Seat({ studentName = null }) {
-  const searColor = "slate-300";
   return (
     <div
-      className={`border-3 border-${searColor} bg-${searColor} rounded-[50%] h-14 w-14 text-xs flex items-center justify-center text-white font-bold ${
+      className={`border-3 border-slate-400 bg-slate-400 rounded-[50%] h-14 w-14 text-xs flex items-center justify-center text-white font-bold ${
         !studentName && "!bg-transparent"
       }`}
     >
@@ -88,11 +124,18 @@ function Seat({ studentName = null }) {
   );
 }
 
-function Seats({ number, studentGroup = [] }) {
+function Seats({ number, studentGroup = [], isBack = false }) {
+  const adjustedStudents = Array.from(
+    { length: number },
+    (x, i) => studentGroup[i]
+  );
+
+  if (isBack) adjustedStudents.reverse();
+
   return (
     <div className="p-4 h-full flex flex-col gap-2 justify-between">
-      {Array.from({ length: number }, (_, index) => (
-        <Seat key={index} studentName={studentGroup[index] || null} />
+      {adjustedStudents.map((student) => (
+        <Seat key={student} studentName={student} />
       ))}
     </div>
   );

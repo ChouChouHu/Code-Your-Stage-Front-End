@@ -35,6 +35,12 @@ const arrangement = [
   }
 ];
 
+const color = "gray-500";
+const borderColor = `border-${color}`;
+const bgColor = `bg-${color}`;
+const textColor = `text-${color}`;
+const borderClass = `border-2 ${borderColor}`;
+
 export default function SeatingChart({ defaultStudents = studentList.sort() }) {
   const [students, setStudents] = useState(defaultStudents);
   const rollTheDice = () => {
@@ -58,8 +64,6 @@ export default function SeatingChart({ defaultStudents = studentList.sort() }) {
 
     return studentsToArrange.slice(start, end);
   }
-
-  const borderClass = `border-2 border-slate-400`;
 
   return (
     <div className="relative flex justify-center">
@@ -86,12 +90,18 @@ export default function SeatingChart({ defaultStudents = studentList.sort() }) {
                   number="6"
                   studentGroup={getStudentGroup(0, students)}
                   isBack={arrangement[0].isBack}
+                  borderColor={borderColor}
+                  bgColor={bgColor}
+                  textColor={textColor}
                 />
                 <div className={`${borderClass} h-full w-24`} />
                 <Seats
                   number="6"
                   studentGroup={getStudentGroup(1, students)}
                   isBack={arrangement[1].isBack}
+                  borderColor={borderColor}
+                  bgColor={bgColor}
+                  textColor={textColor}
                 />
               </div>
             </div>
@@ -101,6 +111,9 @@ export default function SeatingChart({ defaultStudents = studentList.sort() }) {
                   number="6"
                   studentGroup={getStudentGroup(2, students)}
                   isBack={arrangement[2].isBack}
+                  borderColor={borderColor}
+                  bgColor={bgColor}
+                  textColor={textColor}
                 />
                 <div className={`${borderClass} h-full w-24`} />
               </div>
@@ -112,19 +125,26 @@ export default function SeatingChart({ defaultStudents = studentList.sort() }) {
   );
 }
 
-function Seat({ studentName = null }) {
+function Seat({ studentName = null, borderColor, bgColor, textColor }) {
   return (
     <div
-      className={`border-3 border-slate-400 bg-slate-400 rounded-[50%] h-14 w-14 text-xs flex items-center justify-center text-white font-bold ${
+      className={`border-3 ${borderColor} ${bgColor} rounded-[50%] h-14 w-14 text-xs flex items-center justify-center text-white font-bold ${
         !studentName && "!bg-transparent"
       }`}
     >
-      {studentName || <span className="text-slate-400">空</span>}
+      {studentName || <span className={`${textColor} font-extrabold`}>空</span>}
     </div>
   );
 }
 
-function Seats({ number, studentGroup = [], isBack = false }) {
+function Seats({
+  number,
+  studentGroup = [],
+  isBack = false,
+  borderColor,
+  bgColor,
+  textColor
+}) {
   const adjustedStudents = Array.from(
     { length: number },
     (x, i) => studentGroup[i]
@@ -135,7 +155,13 @@ function Seats({ number, studentGroup = [], isBack = false }) {
   return (
     <div className="p-4 h-full flex flex-col gap-2 justify-between">
       {adjustedStudents.map((student) => (
-        <Seat key={student} studentName={student} />
+        <Seat
+          key={student}
+          studentName={student}
+          borderColor={borderColor}
+          bgColor={bgColor}
+          textColor={textColor}
+        />
       ))}
     </div>
   );

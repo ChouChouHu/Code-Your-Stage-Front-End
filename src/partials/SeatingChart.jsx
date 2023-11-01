@@ -35,11 +35,10 @@ const arrangement = [
   }
 ];
 
-const color = "gray-500";
-const borderColor = `border-${color}`;
-const bgColor = `bg-${color}`;
-const textColor = `text-${color}`;
-const borderClass = `border-2 ${borderColor}`;
+const seatBgColor = `bg-[#e5e5e5]`;
+const emptyTextColor = `text-[#e5e5e5]`;
+const textColor = `text-slate-500`;
+const borderClass = `border-2 border-slate-500`;
 
 export default function SeatingChart({ defaultStudents = studentList.sort() }) {
   const [students, setStudents] = useState(defaultStudents);
@@ -66,7 +65,7 @@ export default function SeatingChart({ defaultStudents = studentList.sort() }) {
   }
 
   return (
-    <div className="relative flex justify-center">
+    <div className={`relative flex justify-center ${seatBgColor} p-24`}>
       <button
         className="w-14 rounded-[50%] font-extrabold text-white absolute left-0 top-0 ml-[-50px] flex justify-center items-center leading-4"
         onClick={rollTheDice}
@@ -90,18 +89,12 @@ export default function SeatingChart({ defaultStudents = studentList.sort() }) {
                   number="6"
                   studentGroup={getStudentGroup(0, students)}
                   isBack={arrangement[0].isBack}
-                  borderColor={borderColor}
-                  bgColor={bgColor}
-                  textColor={textColor}
                 />
                 <div className={`${borderClass} h-full w-24`} />
                 <Seats
                   number="6"
                   studentGroup={getStudentGroup(1, students)}
                   isBack={arrangement[1].isBack}
-                  borderColor={borderColor}
-                  bgColor={bgColor}
-                  textColor={textColor}
                 />
               </div>
             </div>
@@ -111,9 +104,6 @@ export default function SeatingChart({ defaultStudents = studentList.sort() }) {
                   number="6"
                   studentGroup={getStudentGroup(2, students)}
                   isBack={arrangement[2].isBack}
-                  borderColor={borderColor}
-                  bgColor={bgColor}
-                  textColor={textColor}
                 />
                 <div className={`${borderClass} h-full w-24`} />
               </div>
@@ -125,26 +115,25 @@ export default function SeatingChart({ defaultStudents = studentList.sort() }) {
   );
 }
 
-function Seat({ studentName = null, borderColor, bgColor, textColor }) {
+function Seat({ studentName = null }) {
   return (
     <div
-      className={`border-3 ${borderColor} ${bgColor} rounded-[50%] h-14 w-14 text-xs flex items-center justify-center text-white font-bold ${
+      className={`${seatBgColor} rounded-[50%] h-14 w-14 text-xs flex items-center justify-center ${textColor} font-bold ${
         !studentName && "!bg-transparent"
       }`}
+      style={{
+        filter:
+          "drop-shadow(3.2px 3.6px 3px rgba(13, 39, 80, 0.26)) drop-shadow(-3px -3px 4px rgba(255, 255, 255, 1))"
+      }}
     >
-      {studentName || <span className={`${textColor} font-extrabold`}>空</span>}
+      {studentName || (
+        <span className={`${emptyTextColor} font-extrabold`}>空</span>
+      )}
     </div>
   );
 }
 
-function Seats({
-  number,
-  studentGroup = [],
-  isBack = false,
-  borderColor,
-  bgColor,
-  textColor
-}) {
+function Seats({ number, studentGroup = [], isBack = false }) {
   const adjustedStudents = Array.from(
     { length: number },
     (x, i) => studentGroup[i]
@@ -155,13 +144,7 @@ function Seats({
   return (
     <div className="p-4 h-full flex flex-col gap-2 justify-between">
       {adjustedStudents.map((student) => (
-        <Seat
-          key={student}
-          studentName={student}
-          borderColor={borderColor}
-          bgColor={bgColor}
-          textColor={textColor}
-        />
+        <Seat key={student} studentName={student} />
       ))}
     </div>
   );

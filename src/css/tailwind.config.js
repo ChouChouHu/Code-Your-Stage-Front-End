@@ -11,8 +11,15 @@ module.exports = {
         128: "32rem"
       },
       colors: {
-        school: "#ea580c",
-        ...colors
+        ...colors,
+        blue: {
+          100: '#f0f3f5',
+          200: '#f0f2f9',
+          400: '#E4EBF1',
+          600: '#798692',
+          800: '#6e7f8d',
+        },
+        gray: ""
       },
       boxShadow: {
         DEFAULT:

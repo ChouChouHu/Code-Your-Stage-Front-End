@@ -1,12 +1,12 @@
-import FooterWithSocialLinks from "./Footer";
-import Header from "./Header";
+// import FooterWithSocialLinks from "./Footer";
+// import Header from "./Header";
 
 export default function Layout({ children }) {
   return (
     <div>
-      <Header />
+      {/* <Header /> */}
       {children}
-      <FooterWithSocialLinks />
+      {/* <FooterWithSocialLinks /> */}
     </div>
   );
 }

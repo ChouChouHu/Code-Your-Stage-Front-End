@@ -35,7 +35,7 @@ const arrangement = [
   }
 ];
 
-const bgColor = "bg-blue-100";
+const bgColor = "bg-blue-99";
 const seatColor = "bg-blue-200";
 const textColor = "text-blue-800";
 const tableColor = "bg-blue-400 rounded-lg";

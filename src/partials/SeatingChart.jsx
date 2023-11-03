@@ -69,12 +69,11 @@ export default function SeatingChart({ defaultStudents = studentList.sort() }) {
 
   return (
     <>
-      <div className="p-10 z-10" style={{ backdropFilter: "blur(50px)" }}>
+      <div className="p-10 z-10 glass">
         <div className="absolute top-0 left-0 h-full w-full bg-[rgba(255,255,255,0.2)] figmaShadow rounded-2xl" />
         <div className="relative">
           <textarea
-            className="rounded-xl px-4 py-2 bg-blue-600 figmaInsetShadow resize-none text-blue-200 h-48 w-48 opacity-70"
-            style={{ backdropFilter: "blur(50px)" }}
+            className="rounded-xl glass px-4 py-2 bg-blue-600 figmaInsetShadow resize-none text-blue-200 h-48 w-48 opacity-70"
             value={students.join("\n")}
             onChange={(event) => {
               const text = event.target.value;
@@ -106,7 +105,7 @@ export default function SeatingChart({ defaultStudents = studentList.sort() }) {
         </div>
       </div>
       <div
-        className={`relative inline-flex justify-center ${bgColor} py-16 px-20 rounded-2xl h-full overflow-scroll`}
+        className={`relative inline-flex justify-center ${bgColor} figmaShadow glass py-16 px-20 rounded-2xl h-full overflow-scroll`}
       >
         <div
           className="w-[500px] relative"

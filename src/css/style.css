@@ -22,3 +22,7 @@ Therefore, we adjust the order slightly for the presentation effect of the proje
 .figmaInsetShadow {
     box-shadow: inset 2.6px 2.8px 5px rgba(13, 39, 80, 0.15), inset -2.6px -2.6px 2px rgba(255, 255, 255, 1);
 }
+
+.glass {
+   backdrop-filter: blur(50px);
+ }

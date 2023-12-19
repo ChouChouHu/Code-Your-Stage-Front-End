@@ -20,7 +20,8 @@ module.exports = {
           600: '#798692',
           800: '#6e7f8d',
         },
-        gray: ""
+        orange: "#f05f2d",
+        background: "#e7e8e3"
       },
       boxShadow: {
         DEFAULT:

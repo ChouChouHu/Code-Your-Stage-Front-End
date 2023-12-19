@@ -26,3 +26,7 @@ Therefore, we adjust the order slightly for the presentation effect of the proje
 .glass {
    backdrop-filter: blur(50px);
  }
+
+ .schoolShadow {
+    filter: drop-shadow(0px 15px 15px rgba(186, 186, 183, 0.3));
+ }

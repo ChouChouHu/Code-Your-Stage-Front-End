@@ -17,6 +17,8 @@ import './charts/ChartjsConfig'
 import Dashboard from './pages/Dashboard'
 import Chat from './pages/Chat'
 import Home from './pages/Home'
+import Chou from './pages/Chou'
+import Effect from './pages/Effect'
 import NotFound from './pages/404'
 import Table from './pages/Table'
 import Form from './pages/Form'
@@ -46,6 +48,8 @@ function App() {
 		<ClerkProvider publishableKey={clerkPubKey}>
 			<Routes>
 				<Route exact path="/" element={<Home />} />
+				<Route exact path="/effect" element={<Effect />} />
+				<Route exact path="/chou" element={<Chou />} />
 				<Route exact path="/zoo" element={<Navigate to="/zoo/chart" />} />
 				<Route exact path="/zoo/chart" element={<Dashboard />} />
 				<Route exact path="/zoo/table" element={<Table />} />

@@ -1,37 +1,39 @@
 /* eslint-disable import/prefer-default-export */
 
-import { useState } from "react";
+import { useEffect, useRef, useState, useSyncExternalStore } from "react";
+import { todosStore } from "../todoStore";
+// import Trix from "trix"
 
 const studentList = [
   "張安松 / *Benny*",
   "陳禮群 / *Andrew* Chen",
-  "徐*承奕* / Cheng-Yi Hsu",
+  "徐承奕 / *Marce* Hsu",
   "*李墉* / Yong Lee",
   "李*格全* / Max Li",
-  "林*怡君* / Yi Chun Lin",
+  // "林*怡君* / Yi Chun Lin",
   "何穎婷 / *Candy* Ho",
-  "余*紹群* / Shao Chun Yu",
+  "余紹群 / *Davis* Yu",
   "汪*穎瑩* / Ying Ying Wang",
   "林*孟璇* / MengSyuan Lin",
   "林*以理* / Yi-Li Lin",
-  "殷*語彤* / Yin Yu Tung",
-  "王*宸秀* / Chen-Xiu Wang",
-  "廖*晏瑢* / Yen Jung Liao"
+  "殷語彤 / *Melody* Tung",
+  // "王*宸秀* / Chen-Xiu Wang",
+  // "廖晏瑢 / *格斯*",
 ];
 
 const arrangement = [
   {
-    size: 6,
-    isBack: false
+    size: 5,
+    isBack: false,
   },
   {
     size: 6,
-    isBack: false
+    isBack: false,
   },
   {
     size: 6,
-    isBack: false
-  }
+    isBack: false,
+  },
 ];
 
 const cardClass = "bg-white rounded-3xl schoolShadow";
@@ -43,8 +45,70 @@ const decorationColor = "bg-[#e8e9e4] rounded-xl";
 const buttonClass =
   "border-3 border-[#fd6027] text-[#fd6027] hover:bg-[#fd6027] hover:text-blue-100 duration-100";
 
+  // console.log(TPDirect);
+
 export default function SeatingChart({ defaultStudents = studentList.sort() }) {
+  const todos = useSyncExternalStore(
+    todosStore.subscribe,
+    todosStore.getSnapshot
+  );
+  
+  // console.log(1);
   const [students, setStudents] = useState(defaultStudents);
+  const [showGroup, setShowGroup] = useState(false);
+  const [number, setNumber] = useState(1);
+  const [isRunning, setIsRunning] = useState(true);
+  const intervalRef = useRef(null);
+  // const [array, setArray] = useState([1, 2, 3, 4]);
+  const [group, setGroup] = useState({
+    id: 1,
+    expenses: [
+      { description: "Rent", amount: 1000 },
+      { description: "Groceries", amount: 100 },
+      { description: "Utilities", amount: 150 },
+    ],
+  });
+
+  useEffect(() => {
+    setGroup((prevGroup) => ({
+      ...prevGroup,
+    }));
+    console.log("set");
+  }, []);
+
+  useEffect(() => {
+    console.log("group", group);
+  }, [group]);
+  
+
+
+  useEffect(() => {
+    intervalRef.current = setInterval(() => {
+      if (isRunning) {
+        const randomNum = Math.floor(Math.random() * 4) + 1;
+        setNumber(randomNum);
+      }
+    }, 40);
+    return () => clearInterval(intervalRef.current);
+  }, [isRunning]);
+
+  useEffect(() => {
+    const handleKeyDown = (event) => {
+      if (event.key === "Enter" || event.key === "Space") {
+        setIsRunning(!isRunning);
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [isRunning]);
+
+  const getGroupClass = (groupNumber) =>
+    `absolute w-[5rem] h-[13.7rem] rounded-full border-3 opacity-80 ${
+      !isRunning && number === groupNumber ? "border-[#fd6027]" : ""
+    }`;
+
   const rollTheDice = () => {
     function shuffleArray(array) {
       for (let i = array.length - 1; i > 0; i -= 1) {
@@ -67,12 +131,24 @@ export default function SeatingChart({ defaultStudents = studentList.sort() }) {
     return studentsToArrange.slice(start, end);
   }
 
+  // const [random, setRandom] = useState(0);
+
+  // useEffect(() => {
+  //   setRandom(Math.random());
+  // }, []);
+  // let random = Math.random();
+
   return (
     <>
-      <div>
+      <div className="h-[86%]">
+      <button onClick={() => todosStore.addTodo()}>Add todo</button>
+      <hr />
+      <ul>
+      {todos}
+      </ul>
         {/* control sidebar */}
         {/* <div className="absolute top-0 left-0 h-full w-full" /> */}
-        <div className="relative">
+        <div className="relative h-full">
           <Checkboxes students={students} setStudents={setStudents} />
           {/* <textarea
             className={`px-8 py-6 resize-none text-[#3c464d] h-80 w-60 border-transparent border-2 font-semibold ${cardClass}`}
@@ -83,26 +159,39 @@ export default function SeatingChart({ defaultStudents = studentList.sort() }) {
               setStudents(updatedStudents);
             }}
           /> */}
-          <div className="flex flex-col items-center gap-6 justify-center mt-10">
-            {/* <label className="relative inline-flex items-center cursor-pointer">
-              <input
-                type="checkbox"
-                value=""
-                className="sr-only peer"
-                checked
-                disabled
-              />
-              <div className="w-11 h-6 bg-blue-400 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300  rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-blue-200 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-[#fd6027] peer-checked:bg-[#fd6027]" />
-              <span className="ml-3 text-sm font-medium text-[#fd6027] dark:text-[#fd6027]">
-                往前坐
-              </span>
-            </label> */}
+          <div className="flex justify-center">
             <button
-              className={`px-16 py-3 rounded-3xl tracking-wide font-semibold flex justify-center items-center leading-4 ${buttonClass}`}
+              className={`px-10 text-sm py-2 mt-8 rounded-3xl tracking-wide font-semibold flex justify-center items-center leading-4 ${buttonClass}`}
               onClick={rollTheDice}
             >
-              Roll
+              換位子
             </button>
+          </div>
+          <div className="flex flex-col items-center gap-6 justify-center mt-40">
+            <div
+              className={`relative border-3 ${
+                showGroup ? "border-[#fd6027]" : "border-slate-400"
+              } rounded-lg w-full h-60 text-center pt-6`}
+            >
+              <label className="relative inline-flex items-center cursor-pointer">
+                <input
+                  type="checkbox"
+                  value={showGroup}
+                  className="sr-only peer"
+                  checked={showGroup}
+                  onChange={() => setShowGroup(!showGroup)}
+                />
+                <div className="w-11 h-6 bg-slate-300 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-blue-200 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-[#fd6027] peer-checked:bg-[#fd6027]" />
+                <span className="ml-3 text-sm font-medium text-slate-500 dark:text-[#fd6027]">
+                  抽組別
+                </span>
+              </label>
+              {showGroup ? (
+                <h1 className="text-8xl mt-8 text-[#fd6027]">{number}</h1>
+              ) : (
+                <h1 className="text-8xl mt-8 text-slate-500">0</h1>
+              )}
+            </div>
           </div>
         </div>
       </div>
@@ -120,9 +209,57 @@ export default function SeatingChart({ defaultStudents = studentList.sort() }) {
               />
               <div className={`${decorationColor} h-6 w-[300px]`} />
             </div>
-            <div className="flex mt-10 justify-between">
+            <div className="relative flex mt-10 justify-between">
+              {showGroup ? (
+                <div className="absolute w-full h-full">
+                  <div className={`${getGroupClass(1)} left-1 top-2`}>
+                    <span
+                      className={`absolute font-bold text-slate-500 -mt-2 text-xs ${
+                        !isRunning && number === 1 ? "!text-[#fd6027]" : ""
+                      }`}
+                    >
+                      1
+                    </span>
+                  </div>
+                  <div
+                    className={`${getGroupClass(
+                      2
+                    )} left-1 top-[14.2rem] h-[9rem]`}
+                  >
+                    <span
+                      className={`absolute font-bold text-slate-500 -mt-2 text-xs ${
+                        !isRunning && number === 2 ? "!text-[#fd6027]" : ""
+                      }`}
+                    >
+                      2
+                    </span>
+                  </div>
+                  <div className={`${getGroupClass(3)} left-[12.8rem] top-2`}>
+                    <span
+                      className={`absolute font-bold text-slate-500 -mt-2 text-xs ${
+                        !isRunning && number === 3 ? "!text-[#fd6027]" : ""
+                      }`}
+                    >
+                      3
+                    </span>
+                  </div>
+                  <div
+                    className={`${getGroupClass(
+                      4
+                    )} left-[12.8rem] top-[14.2rem]`}
+                  >
+                    <span
+                      className={`absolute font-bold text-slate-500 -mt-2 text-xs ${
+                        !isRunning && number === 4 ? "!text-[#fd6027]" : ""
+                      }`}
+                    >
+                      4
+                    </span>
+                  </div>
+                </div>
+              ) : null}
               <div>
-                <div className="flex h-[420px]">
+                <div className="flex h-[450px]">
                   <Seats
                     number="6"
                     studentGroup={getStudentGroup(0, students)}
@@ -137,7 +274,7 @@ export default function SeatingChart({ defaultStudents = studentList.sort() }) {
                 </div>
               </div>
               <div>
-                <div className="h-[420px] flex">
+                <div className="h-[450px] flex">
                   <Seats
                     number="6"
                     studentGroup={getStudentGroup(2, students)}
@@ -150,6 +287,18 @@ export default function SeatingChart({ defaultStudents = studentList.sort() }) {
           </div>
         </div>
       </div>
+      {/* <div>
+        {array.map((item, index) => (
+          <div key={item}>{item}</div>
+        ))}
+        <div onClick={() => setArray([array.length + 1, ...array])}>add</div>
+      </div> */}
+      {/* {Math.random()} */}
+      {/* {random} */}
+      <form>
+        <input id="x" type="hidden" name="content" />
+        <trix-editor input="x" />
+      </form>
     </>
   );
 }
@@ -157,23 +306,18 @@ export default function SeatingChart({ defaultStudents = studentList.sort() }) {
 function Checkboxes({ defaultStudents = studentList, students, setStudents }) {
   const [processedStudentNames] = useState(() =>
     defaultStudents.reduce((acc, student) => {
-      // 去除星號的函數
       const removeAsterisks = (str) => str.replace(/\*/g, "");
 
-      // 將原始字串和處理後的字串添加到物件中
       acc[student] = removeAsterisks(student);
       return acc;
     }, {})
   );
 
-  // 處理勾選框變化的函數
   const handleCheckboxChange = (student) => {
     setStudents((prevCheckedStudents) => {
       if (prevCheckedStudents.includes(student)) {
-        // 如果學生已經被勾選，則取消勾選
         return prevCheckedStudents.filter((s) => s !== student);
       }
-      // 否則添加學生到勾選列表
       return [...prevCheckedStudents, student];
     });
   };
@@ -186,7 +330,7 @@ function Checkboxes({ defaultStudents = studentList, students, setStudents }) {
               type="checkbox"
               checked={students.includes(name)}
               onChange={() => handleCheckboxChange(name)}
-              className="hidden" // 隱藏原生 checkbox
+              className="hidden"
             />
             <span className="flex items-center justify-center w-4 h-4 mr-2 border border-gray-300 rounded">
               {students.includes(name) && (
@@ -202,6 +346,7 @@ function Checkboxes({ defaultStudents = studentList, students, setStudents }) {
 }
 
 function Seats({ number, studentGroup = [], isBack = false }) {
+  // console.log(2);
   const adjustedStudents = Array.from(
     { length: number },
     (x, i) => studentGroup[i]
@@ -210,9 +355,9 @@ function Seats({ number, studentGroup = [], isBack = false }) {
   if (isBack) adjustedStudents.reverse();
 
   return (
-    <div className="p-4 h-full flex flex-col gap-2 justify-between">
-      {adjustedStudents.map((student) => (
-        <Seat key={student} studentName={student} />
+    <div className="p-4 h-full flex flex-col gap-4 justify-between">
+      {adjustedStudents?.map((student, index) => (
+        <Seat key={student || index} studentName={student} />
       ))}
     </div>
   );
@@ -220,18 +365,16 @@ function Seats({ number, studentGroup = [], isBack = false }) {
 
 function Seat({ studentName = null }) {
   const extractBetweenAsterisks = (str) => {
-    // 尋找第一個和第二個星號的位置
     const firstAsterisk = str.indexOf("*");
     const secondAsterisk = str.indexOf("*", firstAsterisk + 1);
 
     if (firstAsterisk === -1 || secondAsterisk === -1) {
-      // 如果沒有星號，則返回原始字符串
       return str;
     }
 
-    // 提取並返回星號之間的內容
     return str.substring(firstAsterisk + 1, secondAsterisk);
   };
+  // console.log("studentName", studentName);
 
   return studentName ? (
     <div
@@ -240,6 +383,7 @@ function Seat({ studentName = null }) {
       }`}
     >
       {extractBetweenAsterisks(studentName)}
+      {/* {Math.random()} */}
     </div>
   ) : (
     <div className="figmaInsetShadow rounded-[50%] text-white flex items-center justify-center h-14 w-14" />

@@ -27,6 +27,7 @@
     "sweetalert2": "^11.7.28",
     "swr": "^2.2.1",
     "tailwind-scrollbar-hide": "^1.1.7",
+    "trix": "^2.0.10",
     "use-react-countries": "^1.1.0"
   },
   "devDependencies": {

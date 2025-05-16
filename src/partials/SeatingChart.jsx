@@ -47,7 +47,8 @@ const buttonClass =
 
   // console.log(TPDirect);
 
-export default function SeatingChart({ defaultStudents = studentList.sort() }) {
+export default function SeatingChart({ defaultStudents = studentList.sort(), count }) {
+  console.log(count);
   const todos = useSyncExternalStore(
     todosStore.subscribe,
     todosStore.getSnapshot
@@ -60,49 +61,30 @@ export default function SeatingChart({ defaultStudents = studentList.sort() }) {
   const [isRunning, setIsRunning] = useState(true);
   const intervalRef = useRef(null);
   // const [array, setArray] = useState([1, 2, 3, 4]);
-  const [group, setGroup] = useState({
-    id: 1,
-    expenses: [
-      { description: "Rent", amount: 1000 },
-      { description: "Groceries", amount: 100 },
-      { description: "Utilities", amount: 150 },
-    ],
-  });
-
-  useEffect(() => {
-    setGroup((prevGroup) => ({
-      ...prevGroup,
-    }));
-    console.log("set");
-  }, []);
-
-  useEffect(() => {
-    console.log("group", group);
-  }, [group]);
-  
 
 
-  useEffect(() => {
-    intervalRef.current = setInterval(() => {
-      if (isRunning) {
-        const randomNum = Math.floor(Math.random() * 4) + 1;
-        setNumber(randomNum);
-      }
-    }, 40);
-    return () => clearInterval(intervalRef.current);
-  }, [isRunning]);
 
-  useEffect(() => {
-    const handleKeyDown = (event) => {
-      if (event.key === "Enter" || event.key === "Space") {
-        setIsRunning(!isRunning);
-      }
-    };
+  // useEffect(() => {
+  //   intervalRef.current = setInterval(() => {
+  //     if (isRunning) {
+  //       const randomNum = Math.floor(Math.random() * 4) + 1;
+  //       setNumber(randomNum);
+  //     }
+  //   }, 40);
+  //   return () => clearInterval(intervalRef.current);
+  // }, [isRunning]);
 
-    window.addEventListener("keydown", handleKeyDown);
+  // useEffect(() => {
+  //   const handleKeyDown = (event) => {
+  //     if (event.key === "Enter" || event.key === "Space") {
+  //       setIsRunning(!isRunning);
+  //     }
+  //   };
 
-    return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [isRunning]);
+  //   window.addEventListener("keydown", handleKeyDown);
+
+  //   return () => window.removeEventListener("keydown", handleKeyDown);
+  // }, [isRunning]);
 
   const getGroupClass = (groupNumber) =>
     `absolute w-[5rem] h-[13.7rem] rounded-full border-3 opacity-80 ${
@@ -167,6 +149,7 @@ export default function SeatingChart({ defaultStudents = studentList.sort() }) {
               換位子
             </button>
           </div>
+          <div>{JSON.stringify(count)}</div>
           <div className="flex flex-col items-center gap-6 justify-center mt-40">
             <div
               className={`relative border-3 ${

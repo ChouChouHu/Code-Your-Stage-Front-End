@@ -9,12 +9,26 @@ const studentList = [
   "李墉",
   "Max",
   "Candy",
+  
   "Davis",
   "穎瑩",
   "孟璇",
   "以理",
   "Melody",
 ];
+
+
+// test 帳號
+// component 300 行
+// 網域
+// 部分分賬
+
+// useEffect -> hook?
+// protected route
+// RWD
+// bundle size
+
+
 
 export default function Home() {
   const intervalRef = useRef(null);
